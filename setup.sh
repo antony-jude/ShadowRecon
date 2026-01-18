@@ -69,13 +69,13 @@ echo ""
 
 # Upgrade pip and install dependencies
 echo "[4/5] Installing dependencies..."
-pip install --upgrade pip > /dev/null 2>&1
+pip install --upgrade pip --no-cache-dir > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo "✗ Failed to upgrade pip"
     exit 1
 fi
 
-pip install -r requirements.txt
+pip install -r requirements.txt --no-cache-dir
 if [ $? -ne 0 ]; then
     echo "✗ Failed to install dependencies from requirements.txt"
     exit 1

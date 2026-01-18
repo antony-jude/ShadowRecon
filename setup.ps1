@@ -67,13 +67,13 @@ Write-Host ""
 
 # Upgrade pip and install dependencies
 Write-Host "[4/5] Installing dependencies..." -ForegroundColor Yellow
-pip install --upgrade pip > $null 2>&1
+pip install --upgrade pip --no-cache-dir > $null 2>&1
 if ($LASTEXITCODE -ne 0) {
     Write-Host "✗ Failed to upgrade pip" -ForegroundColor Red
     exit 1
 }
 
-pip install -r requirements.txt
+pip install -r requirements.txt --no-cache-dir
 if ($LASTEXITCODE -ne 0) {
     Write-Host "✗ Failed to install dependencies from requirements.txt" -ForegroundColor Red
     exit 1

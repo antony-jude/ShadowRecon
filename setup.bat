@@ -73,14 +73,14 @@ echo.
 
 REM Upgrade pip and install dependencies
 echo [4/5] Installing dependencies...
-python -m pip install --upgrade pip >nul 2>&1
+python -m pip install --upgrade pip --no-cache-dir >nul 2>&1
 if errorlevel 1 (
     echo ✗ Failed to upgrade pip
     pause
     exit /b 1
 )
 
-pip install -r requirements.txt
+pip install -r requirements.txt --no-cache-dir
 if errorlevel 1 (
     echo ✗ Failed to install dependencies from requirements.txt
     pause
