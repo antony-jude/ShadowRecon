@@ -77,21 +77,120 @@ ShadowRecon/
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Python 3.8+
+- Python 3.8+ 
+- Git (for cloning repository)
 - pip (Python package manager)
 - (Optional) API keys for enhanced features
 
-### Installation
+### Installation from GitHub
+
+#### Option 1: Using Automated Setup (Recommended)
+
+**For Windows (PowerShell):**
+```powershell
+# 1. Clone the repository
+git clone https://github.com/antony-jude/ShadowRecon.git
+cd ShadowRecon
+
+# 2. Run automated setup script
+.\setup.ps1
+```
+
+**For Windows (Command Prompt):**
+```batch
+# 1. Clone the repository
+git clone https://github.com/antony-jude/ShadowRecon.git
+cd ShadowRecon
+
+# 2. Run automated setup script
+setup.bat
+```
+
+**For Linux/macOS:**
+```bash
+# 1. Clone the repository
+git clone https://github.com/antony-jude/ShadowRecon.git
+cd ShadowRecon
+
+# 2. Make script executable and run
+chmod +x setup.sh
+bash setup.sh
+```
+
+The setup script will automatically:
+- ✓ Check Python installation
+- ✓ Create virtual environment
+- ✓ Install all dependencies
+- ✓ Initialize Git repository
+- ✓ Create `.env` configuration file
+
+**Platform-Specific Prerequisites:**
+
+<details>
+<summary><strong>Ubuntu/Debian Linux</strong></summary>
 
 ```bash
-# 1. Navigate to project directory
+# Update package manager
+sudo apt-get update
+
+# Install Python 3 and required tools
+sudo apt-get install python3 python3-pip python3-venv git -y
+
+# Optional: for some dependencies
+sudo apt-get install build-essential python3-dev -y
+```
+</details>
+
+<details>
+<summary><strong>Fedora/RHEL/CentOS</strong></summary>
+
+```bash
+# Update package manager
+sudo dnf update
+
+# Install Python 3 and required tools
+sudo dnf install python3 python3-pip python3-devel git -y
+```
+</details>
+
+<details>
+<summary><strong>Arch Linux</strong></summary>
+
+```bash
+# Update package manager
+sudo pacman -Syu
+
+# Install Python 3 and required tools
+sudo pacman -S python pip git base-devel
+```
+</details>
+
+<details>
+<summary><strong>macOS</strong></summary>
+
+```bash
+# Install Homebrew (if not installed)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Install Python 3 and Git
+brew install python3 git
+```
+</details>
+
+#### Option 2: Manual Installation
+
+**Linux/macOS:**
+```bash
+# 1. Clone the repository
+git clone https://github.com/antony-jude/ShadowRecon.git
 cd ShadowRecon
 
 # 2. Create virtual environment (recommended)
-python -m venv venv
-source venv/bin/activate          # On Windows: venv\Scripts\activate
+python3 -m venv venv
+source venv/bin/activate
 
 # 3. Install dependencies
+pip install --upgrade pip
 pip install -r requirements.txt
 
 # 4. Configure API keys
@@ -99,13 +198,90 @@ cp .env.example .env
 # Edit .env and add your API keys (optional)
 ```
 
+**Windows (PowerShell):**
+```powershell
+# 1. Clone the repository
+git clone https://github.com/antony-jude/ShadowRecon.git
+cd ShadowRecon
+
+# 2. Create virtual environment (recommended)
+python -m venv venv
+venv\Scripts\Activate.ps1
+
+# 3. Install dependencies
+pip install --upgrade pip
+pip install -r requirements.txt
+
+# 4. Configure API keys
+Copy-Item .env.example .env
+# Edit .env and add your API keys (optional)
+```
+
+**Windows (Command Prompt):**
+```batch
+# 1. Clone the repository
+git clone https://github.com/antony-jude/ShadowRecon.git
+cd ShadowRecon
+
+# 2. Create virtual environment (recommended)
+python -m venv venv
+venv\Scripts\activate.bat
+
+# 3. Install dependencies
+pip install --upgrade pip
+pip install -r requirements.txt
+
+# 4. Configure API keys
+copy .env.example .env
+REM Edit .env and add your API keys (optional)
+```
+
 ### Running the Framework
 
+**Linux/macOS:**
 ```bash
+# Activate virtual environment first (if not already active)
+source venv/bin/activate
+
+# Start interactive CLI
+python3 main.py
+```
+
+**Windows (PowerShell):**
+```powershell
+# Activate virtual environment first (if not already active)
+venv\Scripts\Activate.ps1
+
 # Start interactive CLI
 python main.py
+```
 
-# Or run specific reconnaissance from Python
+**Windows (Command Prompt):**
+```batch
+# Activate virtual environment first (if not already active)
+venv\Scripts\activate.bat
+
+# Start interactive CLI
+python main.py
+```
+
+**Or run specific reconnaissance from Python:**
+
+Linux/macOS:
+```bash
+source venv/bin/activate
+python3 -c "
+import asyncio
+from modules import UsernameRecon
+recon = UsernameRecon()
+results = asyncio.run(recon.check_username('john_doe'))
+print(results)
+"
+```
+
+Windows (PowerShell):
+```powershell
+venv\Scripts\Activate.ps1
 python -c "
 import asyncio
 from modules import UsernameRecon
@@ -357,6 +533,27 @@ tail -f shadowrecon.log
 # Configure in .env: LOG_LEVEL=DEBUG
 ```
 
+## 🔄 Git Workflow
+
+After running the setup script, your repository is initialized and ready:
+
+```bash
+# Check Git status
+git status
+
+# Stage changes
+git add .
+
+# Commit initial setup
+git commit -m "Initial setup: dependencies installed, environment configured"
+
+# Add remote repository (if not already added)
+git remote add origin https://github.com/antony-jude/ShadowRecon.git
+
+# Push to GitHub
+git push -u origin main
+```
+
 ## 🤝 Extensibility
 
 ### Adding New Modules
@@ -409,7 +606,162 @@ pip install dnspython
 python -m certifi
 ```
 
-## 📚 Resources
+## � Troubleshooting
+
+### Common Linux Setup Issues
+
+#### "Permission denied" on setup.sh
+```bash
+# Make the script executable first
+chmod +x setup.sh
+bash setup.sh
+```
+
+#### Python 3 not found
+```bash
+# Check if Python is installed
+python3 --version
+
+# If not, install it:
+# Ubuntu/Debian:
+sudo apt-get install python3 python3-pip python3-venv
+
+# Fedora/RHEL:
+sudo dnf install python3 python3-pip
+
+# Arch:
+sudo pacman -S python pip
+```
+
+#### "source: command not found" (if using sh instead of bash)
+```bash
+# Use bash explicitly
+bash setup.sh
+
+# Or check your default shell
+echo $SHELL
+
+# If default is /bin/sh, change to bash:
+chsh -s /bin/bash
+```
+
+#### Module "venv" not found
+```bash
+# Install python3-venv package
+
+# Ubuntu/Debian:
+sudo apt-get install python3-venv
+
+# Fedora/RHEL:
+sudo dnf install python3-venv
+```
+
+#### "pip: command not found"
+```bash
+# Use pip3 instead
+pip3 install -r requirements.txt
+
+# Or upgrade pip3
+python3 -m pip install --upgrade pip
+python3 -m pip install -r requirements.txt
+```
+
+#### Virtual environment activation fails
+```bash
+# Ensure you're using bash
+bash
+
+# Then activate
+source venv/bin/activate
+
+# Verify it worked (should see (venv) in prompt)
+echo $VIRTUAL_ENV
+```
+
+#### Port or socket binding issues
+```bash
+# Check if port is already in use
+sudo lsof -i :PORT_NUMBER
+
+# Or kill existing process
+sudo fuser -k PORT_NUMBER/tcp
+```
+
+### Windows-Specific Issues
+
+#### "execution of scripts is disabled" (PowerShell)
+```powershell
+# Set execution policy for current user
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+# Then run setup
+.\setup.ps1
+```
+
+#### Python not recognized
+```powershell
+# Check if Python is in PATH
+python --version
+
+# If not, add Python to PATH or use full path:
+"C:\Program Files\Python311\python.exe" main.py
+```
+
+### General Issues Across All Platforms
+
+#### "ModuleNotFoundError" or "ImportError"
+```bash
+# Ensure virtual environment is activated
+source venv/bin/activate  # Linux/macOS
+# OR
+venv\Scripts\Activate.ps1  # Windows PowerShell
+
+# Reinstall dependencies
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+#### .env file not loading
+```bash
+# Ensure .env exists in project root
+ls -la .env  # or dir .env on Windows
+
+# Copy from example if missing
+cp .env.example .env  # Linux/macOS
+copy .env.example .env  # Windows Command Prompt
+Copy-Item .env.example .env  # Windows PowerShell
+```
+
+#### Network/API connection errors
+```bash
+# Test network connectivity
+ping 8.8.8.8
+
+# Test specific API endpoint
+curl -I https://api.shodan.io/
+# or
+python3 -c "import urllib.request; urllib.request.urlopen('https://api.shodan.io/'); print('OK')"
+```
+
+#### "Command not found" errors
+```bash
+# On Linux/macOS, ensure you're in the project directory
+cd /path/to/ShadowRecon
+
+# And that python3 is used (not python)
+python3 --version
+python3 main.py
+```
+
+### Getting Help
+
+If you encounter issues:
+1. Check this troubleshooting section above
+2. Review the full [SETUP.md](SETUP.md) guide
+3. Check [TESTING.md](TESTING.md) for testing procedures
+4. Open an issue on [GitHub Issues](https://github.com/antony-jude/ShadowRecon/issues)
+
+## �📚 Resources
 
 ### OSINT Learning
 - [OSINT Framework](https://osintframework.com/)
@@ -425,16 +777,32 @@ python -m certifi
 ## 📋 Requirements
 
 ```
-aiohttp==3.9.1              # Async HTTP client
-python-dotenv==1.0.0        # Environment variables
-requests==2.31.0            # HTTP library
-dnspython==2.4.2            # DNS queries
-whois==0.9.7                # WHOIS lookups
-```
+aio🌐 GitHub Repository
 
-## 📄 License
+**Repository**: [ShadowRecon on GitHub](https://github.com/antony-jude/ShadowRecon)
 
-Educational and authorized cybersecurity use only.
+### Contributing
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+### Issues & Support
+Report bugs and request features on the [GitHub Issues](https://github.com/antony-jude/ShadowRecon/issues) page.
+
+## 👨‍💻 Author
+
+ShadowRecon Framework v1.0
+Built for professional security researchers and ethical hackers.
+
+---
+
+**Repository**: https://github.com/antony-jude/ShadowRecon  
+**Last Updated**: January 2026  
+**Python Version**: 3.8+  
+**Status**: Production Ready ✅  
+**License**: MIT (or your chosen license)ersecurity use only.
 
 ## ⚖️ Disclaimer
 
